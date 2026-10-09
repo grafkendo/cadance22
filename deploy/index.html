@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadence — Projects, in rhythm</title>
+<meta name="description" content="Cadence is a simple project board for planning and shipping work.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230F766E'/%3E%3Crect x='14' y='20' width='36' height='7' rx='3.5' fill='white'/%3E%3Crect x='14' y='30' width='24' height='7' rx='3.5' fill='white' opacity='.75'/%3E%3Crect x='14' y='40' width='30' height='7' rx='3.5' fill='white' opacity='.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0F766E"/><rect x="14" y="20" width="36" height="7" rx="3.5" fill="#fff"/><rect x="14" y="30" width="24" height="7" rx="3.5" fill="#fff" opacity=".75"/><rect x="14" y="40" width="30" height="7" rx="3.5" fill="#fff" opacity=".5"/></svg>
+      <div><div class="brand-name">Cadence</div><div class="brand-sub">Projects, in rhythm</div></div>
+    </div>
+    <div class="side-label">Projects</div>
+    <nav class="projects" id="projectList"></nav>
+    <button class="ghost-btn" id="addProjectBtn">+ New project</button>
+    <div class="side-label">Backup</div>
+    <div class="drive-box" id="driveBox">
+      <div class="drive-status" id="driveStatus"><span class="dot-pulse"></span><span id="driveStatusText">Drive not connected</span></div>
+      <button class="ghost-btn" id="driveBtn">Connect Google Drive</button>
+      <details class="drive-help">
+        <summary>Trouble connecting?</summary>
+        <div class="drive-note" style="display:block">If Google says the app "has not completed the Google verification process": the app is in testing mode. Fix it in the <a href="https://console.cloud.google.com/apis/credentials/consent" target="_blank" rel="noopener">OAuth consent screen</a> — scroll to <b>Test users</b>, add your Gmail, save. Then try Connect again.</div>
+      </details>
+      <div class="drive-note" id="driveNote" hidden></div>
+    </div>
+    <div class="side-foot">Saved in this browser.<br>Simple on purpose.</div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Toggle sidebar">☰</button>
+      <div class="title-wrap">
+        <h1 id="boardTitle">All projects</h1>
+        <div class="stats" id="stats"></div>
+      </div>
+      <div class="top-actions">
+        <input class="search" id="search" type="search" placeholder="Search cards…" aria-label="Search cards">
+        <button class="primary-btn" id="addCardBtn">+ Add card</button>
+      </div>
+    </header>
+    <section class="board" id="board"></section>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <h2 id="modalTitle">Card</h2>
+    <label>Title<input id="fTitle" type="text" maxlength="120" placeholder="What needs doing?"></label>
+    <label>Description<textarea id="fDesc" rows="4" placeholder="Details, links, acceptance criteria…"></textarea></label>
+    <div class="row2">
+      <label>Priority
+        <select id="fPriority">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+      </label>
+      <label>Project<select id="fProject"></select></label>
+    </div>
+    <div class="row2">
+      <label>Status
+        <select id="fStatus">
+          <option value="backlog">Backlog</option>
+          <option value="todo">To Do</option>
+          <option value="doing">In Progress</option>
+          <option value="done">Done</option>
+        </select>
+      </label>
+      <div class="danger-zone"><button class="danger-btn" id="deleteCardBtn" hidden>Delete</button></div>
+    </div>
+    <div class="modal-actions">
+      <button class="ghost-btn" id="cancelBtn">Cancel</button>
+      <button class="primary-btn" id="saveBtn">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="app.js"></script>
+</body>
+</html>
